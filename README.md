@@ -1,8 +1,13 @@
-# web-playground
+# vue with assemblyscript
 
 ## Project setup
 ```
 yarn install
+```
+
+### Compile to web assembly
+```
+yarn asbuild
 ```
 
 ### Compiles and hot-reloads for development

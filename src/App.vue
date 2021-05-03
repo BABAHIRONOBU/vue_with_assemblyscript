@@ -1,16 +1,52 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <WasmProvider
+    :url="url"
+    :imports="imports"
+  >
+    <Comp/>
+  </WasmProvider>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
+import {
+  defineComponent,
+  ref,
+  reactive,
+} from 'vue';
+import { Comp } from '@/components';
+import { WasmProvider } from '@/contexts';
 
 export default defineComponent({
   name: 'App',
   components: {
-    HelloWorld,
+    WasmProvider,
+    Comp,
+  },
+  setup() {
+    const url = ref('/build/optimized.wasm');
+    const imports = reactive({
+      console: {
+        logi(int: number): void {
+          console.log(int);
+        },
+        logf(float: number): void {
+          console.log(float);
+        },
+        logs(str: string):void {
+          console.log(str);
+        },
+      },
+      env: {
+        abort(): void {
+          console.log('');
+        },
+      },
+    });
+
+    return {
+      url,
+      imports,
+    };
   },
 });
 </script>
